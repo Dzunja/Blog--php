@@ -12,9 +12,17 @@
      <!-- Top Menu Items -->
      <ul class="nav navbar-right top-nav">
 
-       <!--   <li><a href="">Users Online: <?php //echo users_online(); ?></a></li> -->
+       <!--   <li><a href="">Users Online: <?php //echo fusers_online(); ?></a></li> -->
 
-         <li><a href="">Users Online: <span class="usersonline"></span></a></li>
+         <li><a href="">Users Online:
+
+           <?php
+            if(isset($_SESSION['username'])){
+              echo $_SESSION['username'];
+            }
+            ?>
+
+            <span class="usersonline"></span></a></li>
 
         <li><a href="../index.php">HOME SITE</a></li>
 

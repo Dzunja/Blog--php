@@ -46,8 +46,8 @@
       <th>Content</th>
       <th>Category</th>
       <th>Status</th>
-      <th>Image</th>
-      <th>Tags</th>
+      <!-- <th>Image</th> -->
+      <!-- <th>Tags</th> -->
       <th>Comments</th>
       <th>Date</th>
     </tr>
@@ -65,7 +65,7 @@
       $post_status = $row['post_status'];
       $post_image = $row['post_image'];
       $post_tags = $row['post_tags'];
-      $post_content = $row['post_content'];
+      $post_content = substr($row['post_content'], 0, 240) . "...";
       $post_comment_count = $row['post_comment_count'];
       $post_date= $row['post_date'];
 
@@ -89,8 +89,8 @@
 }
 
       echo "<td>$post_status</td>";
-      echo "<td><img class='img-responsive' src ='../images/$post_image' alt='image'></td>";
-      echo "<td>$post_tags</td>";
+      // echo "<td><img class='img-responsive' src ='../images/$post_image' alt='image'></td>";
+      // echo "<td>$post_tags</td>";
       echo "<td>$post_comment_count</td>";
 
       echo "<td>$post_date</td>";

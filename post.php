@@ -56,26 +56,30 @@
 
               }
                ?>
-
-
 <!--  Blog Comments-->
                <?php
                if(isset($_POST['create_comment'])){
                  $the_post_id = $_GET['p_id'];
-
                  $comment_author = $_POST['comment_author'];
                  $comment_email = $_POST['comment_email'];
                  $comment_content = $_POST['comment_content'];
+                 if(!empty($comment_author) && !empty($comment_email) && !empty($comment_content)){
+                   $query = "insert into comments (comment_post_id,comment_author,comment_email,comment_content,comment_status,comment_date)" ;
+                  $query .= " values ($the_post_id, '{$comment_author}','$comment_email', '{$comment_content}','unapproved',now())";
 
-                 $query = "insert into comments (comment_post_id,comment_author,comment_email,comment_content,comment_status,comment_date)" ;
-                $query .= " values ($the_post_id, '{$comment_author}','$comment_email', '{$comment_content}','unapproved',now())";
+                  $create_comment_query = mysqli_query($connection,$query);
 
-                $create_comment_query = mysqli_query($connection,$query);
-                if(!$create_comment_query){
-                  die('QUERY FAILED ' . mysqli_error($connection));
+                  $query2 = "update posts set post_comment_count= post_comment_count +1 where post_id = $the_post_id";
+                  $update_comment_count =mysqli_query($connection,$query2);
+                  if(!$create_comment_query){
+                    die('QUERY FAILED ' . mysqli_error($connection));
+                    }
+                 } else{
+                   echo "<script>alert('Field cannot be empty')</script>";
+                 }
+
+
                   }
-
-                         }
 
                 ?>
 
@@ -98,23 +102,19 @@
                    </form>
                </div>
 
-               <hr>
 
                <!-- Posted Comments -->
                <?php
-
+echo $post_id;
                $query = "select * from comments where comment_post_id={$post_id} ";
-               $query .= "and comment_status = 'approve' ";
+              // $query .= "and comment_status = 'approve' ";
                $query .="order by comment_id DESC ";
                $select_comment_query = mysqli_query($connection,$query);
                // if($select_comment_query){
                //   die('Query failed ' .mysqli_error($connection));
                // }
-
-               $query = "update posts set post_comment_count= post_comment_count +1 where post_id = $the_post_id";
-               $update_comment_count =mysqli_query($connection,$query);
                while($row = mysqli_fetch_array($select_comment_query)){
-                 $comment_date = $row['comment_date'];
+                  $comment_date = $row['comment_date'];
                  $comment_content= $row['comment_content'];
                  $comment_author = $row['comment_author'];
 
@@ -127,9 +127,9 @@
                           <img class="media-object" src="http://placehold.it/64x64" alt="">
                       </a>
                       <div class="media-body">
-                          <h4 class="media-heading"><?php echo $comment_author;   ?>
-                              <small><?php echo $comment_date;   ?></small>
-                          </h4>
+                          <h4 class="media-heading">Author: <?php echo $comment_author;   ?>
+                              <small>Date: <?php echo $comment_date;   ?></small>
+                          </h4>Content:
 
                           <?php echo $comment_content;   ?>
 </div>

@@ -39,7 +39,6 @@ if(isset($_POST['edit_user'])){
           $query .= " WHERE user_id = {$the_user_id} ";
 $update_user=mysqli_query($connection,$query);
 confirmQuery($update_user);
-echo $query;
 }
 
 }

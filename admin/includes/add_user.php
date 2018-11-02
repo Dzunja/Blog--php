@@ -14,13 +14,12 @@ if(isset($_POST['create_user'])){
   $post_date = date('d-m-y');
   // $post_comment_count= 4;
   $user_image = 'aaa';
-  $rand_Salt='123456';
 
 
 //  move_uploaded_file($post_image_temp, "../images/$post_image");
 
-   $query = "INSERT INTO users(user_firstname,user_lastname,user_role,user_name,user_email,user_password,user_image,randSalt) ";
-  $query .= " values ('{$user_firstname}','{$user_lastname}','{$user_role}','{$user_name}','{$user_email}','{$user_password}','{$user_image}','{$rand_Salt}')";
+   $query = "INSERT INTO users(user_firstname,user_lastname,user_role,user_name,user_email,user_password,user_image) ";
+  $query .= " values ('{$user_firstname}','{$user_lastname}','{$user_role}','{$user_name}','{$user_email}','{$user_password}','{$user_image}')";
 
 
   $create_user_query = mysqli_query($connection,$query);
